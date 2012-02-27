@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="speed">
+        <item >KiB/s</item>
+        <item >MiB/s</item>
+        <item >GiB/s</item>        
+    </string-array>
+    
+    <string-array name="size">
+        <item >KiB</item>
+        <item >MiB</item>
+        <item >GiB</item>        
+    </string-array>
+
+    <string-array name="time">
+        <item >sec</item>
+        <item >min</item>
+        <item >hour</item>        
+    </string-array>
+    
+</resources>

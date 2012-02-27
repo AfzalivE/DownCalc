@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DownCalc</string>
+    <string name="timehint">Enter time</string>
+    <string name="speedhint">Enter download speed</string>
+    <string name="sizehint">Enter download size</string>
+
+</resources>

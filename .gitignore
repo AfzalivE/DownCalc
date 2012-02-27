@@ -1,0 +1,11 @@
+.classpath
+.project
+.settings
+.idea
+bin
+gen
+out
+target
+
+local.properties
+build.xml
