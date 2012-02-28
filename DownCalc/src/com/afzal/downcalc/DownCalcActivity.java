@@ -141,6 +141,112 @@ public class DownCalcActivity extends Activity {
 				
 			}
 		});
+        
+        txtspeed.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				double speed = 0;
+				double size = 0;
+				double time = 0;
+				if (radtime.isChecked()) { 
+					try {
+						speed = Double.parseDouble(txtspeed.getText().toString());
+						size = Double.parseDouble(txtsize.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (size != 0 && speed != 0) {
+							time = calcTime(speed, size, speedunit, sizeunit, timeunit);
+							txttime.setText(Double.toString(time));
+						}
+					}
+				}
+				
+				if (radsize.isChecked()) {
+					try {
+						speed = Double.parseDouble(txtspeed.getText().toString());
+						time = Double.parseDouble(txttime.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (time != 0 && speed != 0) {
+							size = calcSize(speed, time, speedunit, sizeunit, timeunit);
+							txtsize.setText(Double.toString(size));
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
+				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
+				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        
+        txtsize.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				double speed = 0;
+				double size = 0;
+				double time = 0;
+				if (radtime.isChecked()) { 
+					try {
+						speed = Double.parseDouble(txtspeed.getText().toString());
+						size = Double.parseDouble(txtsize.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (size != 0 && speed != 0) {
+							time = calcTime(speed, size, speedunit, sizeunit, timeunit);
+							txttime.setText(Double.toString(time));
+						}
+					}
+				}
+				
+				if (radspeed.isChecked()) { 
+					try {
+						size = Double.parseDouble(txtsize.getText().toString());
+						time = Double.parseDouble(txttime.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (time != 0 && size != 0) {
+							speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
+							txtspeed.setText(Double.toString(speed));
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				
+				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
+				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
+				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
     }
     
     private double calcSpeed(double size, double time, int speedunit, int sizeunit, int timeunit) {
@@ -156,9 +262,18 @@ public class DownCalcActivity extends Activity {
     	double size = 0;
     	speed = speed * speedunit;
     	time = time * timeunit;
-    	size = speed *time;
+    	size = speed * time;
     	size = size/sizeunit;
     	return size;
+    }
+
+    private double calcTime(double speed, double size, int speedunit, int sizeunit, int timeunit) {
+    	double time = 0;
+    	speed = speed * speedunit;
+    	size = size * sizeunit;
+    	time = size/speed;
+    	time = time/timeunit;
+    	return time;
     }
     
     
