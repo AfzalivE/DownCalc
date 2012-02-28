@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.Button;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 public class DownCalcActivity extends Activity {
@@ -17,6 +18,10 @@ public class DownCalcActivity extends Activity {
 	static Spinner spnspeed;
 	static Spinner spnsize;
 	static Spinner spntime;
+	
+	static RadioButton radspeed;
+	static RadioButton radsize;
+	static RadioButton radtime;
 	
 	final static int kib = 1;
 	final static int mib = 1024;
@@ -48,6 +53,41 @@ public class DownCalcActivity extends Activity {
         spnspeed = (Spinner) findViewById(R.id.speedunit);
         spnsize = (Spinner) findViewById(R.id.sizeunit);
         spntime = (Spinner) findViewById(R.id.timeunit);
+        
+        radspeed = (RadioButton) findViewById(R.id.radspeed);
+        radsize = (RadioButton) findViewById(R.id.radsize);
+        radtime = (RadioButton) findViewById(R.id.radtime);
+        
+        /** Radio button logic */
+        radspeed.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// uncheck the other two
+				radsize.setChecked(false);
+				radtime.setChecked(false);
+			}
+		});
+        
+		radsize.setOnClickListener(new OnClickListener() {
+					
+			@Override
+			public void onClick(View v) {
+				// uncheck the other two
+				radspeed.setChecked(false);
+				radtime.setChecked(false);
+			}
+		});
+
+		radtime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// uncheck the other two
+				radsize.setChecked(false);
+				radspeed.setChecked(false);
+			}
+		});
         		
         txttime.addTextChangedListener(new TextWatcher() {
 			
@@ -56,15 +96,31 @@ public class DownCalcActivity extends Activity {
 				double speed = 0;
 				double size = 0;
 				double time = 0;
-				try {
-					size = Double.parseDouble(txtsize.getText().toString());
-					time = Double.parseDouble(txttime.getText().toString());
-				} catch (NumberFormatException e) {
-					
-				} finally {
-					if (time != 0 && size != 0) {
-						speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
-						txtspeed.setText(Double.toString(speed));
+				if (radspeed.isChecked()) { 
+					try {
+						size = Double.parseDouble(txtsize.getText().toString());
+						time = Double.parseDouble(txttime.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (time != 0 && size != 0) {
+							speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
+							txtspeed.setText(Double.toString(speed));
+						}
+					}
+				}
+				
+				if (radsize.isChecked()) {
+					try {
+						speed = Double.parseDouble(txtspeed.getText().toString());
+						time = Double.parseDouble(txttime.getText().toString());
+					} catch (NumberFormatException e) {
+						
+					} finally {
+						if (time != 0 && speed != 0) {
+							size = calcSize(speed, time, speedunit, sizeunit, timeunit);
+							txtsize.setText(Double.toString(size));
+						}
 					}
 				}
 			}
@@ -94,6 +150,15 @@ public class DownCalcActivity extends Activity {
     	speed = size/time;
     	speed = speed/speedunit;
     	return speed;
+    }
+    
+    private double calcSize(double speed, double time, int speedunit, int sizeunit, int timeunit) {
+    	double size = 0;
+    	speed = speed * speedunit;
+    	time = time * timeunit;
+    	size = speed *time;
+    	size = size/sizeunit;
+    	return size;
     }
     
     

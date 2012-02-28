@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical" >
-
+        
     <RelativeLayout
         android:id="@+id/speedLayout"
         android:layout_width="match_parent"
@@ -13,15 +13,23 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical" >
-
+        
+		<RadioButton
+	        android:id="@+id/radspeed"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true"
+	        android:checked="true" />    
+	        
         <EditText
             android:id="@+id/speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/speedunit"
+            android:layout_toRightOf="@+id/radspeed"
             android:gravity="bottom"
             android:hint="@string/speedhint"
             android:inputType="numberDecimal"
@@ -35,8 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:entries="@array/speed" />
-        
-        
+
 	</RelativeLayout>
 	
     <RelativeLayout
@@ -47,13 +54,19 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical" >
-
+  		<RadioButton
+	        android:id="@+id/radsize"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"	        
+	        android:layout_alignParentLeft="true" />
+  		
         <EditText
             android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/radsize"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/sizeunit"
             android:gravity="bottom"
@@ -71,7 +84,7 @@
             android:entries="@array/size" />
         
 	</RelativeLayout>
-
+	
     <RelativeLayout
         android:id="@+id/timeLayout"
         android:layout_width="match_parent"
@@ -80,13 +93,19 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
         android:orientation="vertical" >
-
+		<RadioButton
+	        android:id="@+id/radtime"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+	        android:layout_alignParentLeft="true" />		
+		
         <EditText
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/radtime"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/timeunit"
             android:gravity="bottom"
