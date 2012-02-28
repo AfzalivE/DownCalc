@@ -30,6 +30,11 @@ public class DownCalcActivity extends Activity {
 	final static int min = 60;
 	final static int hour = 3600;
 	
+	private int speedunit = 0;
+    private int timeunit = 0;
+    private int sizeunit = 0;
+    
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,35 +48,34 @@ public class DownCalcActivity extends Activity {
         spnspeed = (Spinner) findViewById(R.id.speedunit);
         spnsize = (Spinner) findViewById(R.id.sizeunit);
         spntime = (Spinner) findViewById(R.id.timeunit);
-        
-		String sizeunit = spnsize.getSelectedItem().toString();
-		String timeunit = spntime.getSelectedItem().toString();
-		
-        txtspeed.addTextChangedListener(new TextWatcher() {
+        		
+        txttime.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				String speed = txtspeed.getText().toString();
-				String size = txtsize.getText().toString();
-				String time = txttime.getText().toString();
-				
-				if (!size.equals("") && !speed.equals("")){ // size is not null
-					Double intspeed = Double.parseDouble(speed);
-					Log.d("DC", intspeed.toString());
-					Double intsize = Double.parseDouble(size);
-					Log.d("DC", intsize.toString());
-					Double inttime = intsize/intspeed;
-					Log.d("DC", inttime.toString());
-					txttime.setText(Double.toString(inttime));
-				} else if (!time.equals("") && !speed.equals("")){ // time is not null
-					txtsize.setText("size set");
+				double speed = 0;
+				double size = 0;
+				double time = 0;
+				try {
+					size = Double.parseDouble(txtsize.getText().toString());
+					time = Double.parseDouble(txttime.getText().toString());
+				} catch (NumberFormatException e) {
+					
+				} finally {
+					if (time != 0 && size != 0) {
+						speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
+						txtspeed.setText(Double.toString(speed));
+					}
 				}
 			}
 			
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				// TODO Auto-generated method stub
+				
+				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
+				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
+				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
 				
 			}
 			
@@ -81,6 +85,15 @@ public class DownCalcActivity extends Activity {
 				
 			}
 		});
+    }
+    
+    private double calcSpeed(double size, double time, int speedunit, int sizeunit, int timeunit) {
+    	double speed = 0;
+    	size = size * sizeunit;
+    	time = time * timeunit;
+    	speed = size/time;
+    	speed = speed/speedunit;
+    	return speed;
     }
     
     
