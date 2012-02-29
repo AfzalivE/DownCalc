@@ -4,5 +4,6 @@
     <string name="timehint">Time</string>
     <string name="speedhint">Speed</string>
     <string name="sizehint">Size</string>
-
+	<string name="clearbutton">Clear all</string>
+	<string name="instructions">Select the value you would like to keep constant and then edit the others.</string>
 </resources>
