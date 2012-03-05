@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">DownCalc</string>
+    <string name="app_name">Download Calculator</string>
     <string name="timehint">Time</string>
     <string name="speedhint">Speed</string>
     <string name="sizehint">Size</string>

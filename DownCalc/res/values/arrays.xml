@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="speed">
         <item >KiB/s</item>
         <item >MiB/s</item>
-        <item >GiB/s</item>        
+        <item >GiB/s</item>  
+        <item >Kib/s</item>
+        <item >Mib/s</item>
+        <item >Gib/s</item>       
     </string-array>
     
     <string-array name="size">
         <item >KiB</item>
         <item >MiB</item>
-        <item >GiB</item>        
+        <item >GiB</item>
+        <item >Kib</item>
+        <item >Mib</item>
+        <item >Gib</item>        
     </string-array>
 
     <string-array name="time">
         <item >sec</item>
         <item >min</item>
-        <item >hour</item>        
+        <item >hour</item> 
     </string-array>
-    
 </resources>

@@ -20,7 +20,6 @@ package com.afzal.downcalc.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
-import android.view.View;
 
 /**
  * An extension of {@link ActionBarHelper} that provides Android 3.0-specific functionality for

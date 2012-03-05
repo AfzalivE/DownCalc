@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class DownCalcActivity extends Activity {
 	static EditText txtspeed;
@@ -28,21 +32,14 @@ public class DownCalcActivity extends Activity {
 	
 	static Button btnclear;
 	
-	final static int kib = 1;
-	final static int mib = 1024;
-	final static int gib = 1048576;
-	
-	final static int kibs = 1;
-	final static int mibs = 1024;
-	final static int gibs = 1048576;
-	
-	final static int sec = 1;
-	final static int min = 60;
-	final static int hour = 3600;
-	
-	private int speedunit = 0;
+	private double speedunit = 0;
     private int timeunit = 0;
-    private int sizeunit = 0;
+    private double sizeunit = 0;
+    
+    static final int SIZE = 0;
+    static final int TIME = 1;
+    static final int SPEED = 2;
+    
     
 	
     /** Called when the activity is first created. */
@@ -119,17 +116,12 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				
-				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
-				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
-				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
-
+				updateUnits();
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
-				
+
 			}
 		});
         
@@ -144,16 +136,11 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				
-				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
-				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
-				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
-				
+				updateUnits();
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -169,16 +156,11 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
-				
-				speedunit = (int) Math.pow(1024, spnspeed.getSelectedItemPosition());
-				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
-				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
-				
+				updateUnits();
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -189,14 +171,17 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
-				updateTime();
-				updateSpeed();
+				updateUnit(TIME);
+				if (radtime.isChecked()) {
+					updateTime();
+				} else {
+					updateSize();
+					updateSpeed();
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -206,14 +191,17 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				sizeunit = (int)  Math.pow(1024, spnsize.getSelectedItemPosition());
-				updateSize();
-				updateSpeed();
+				updateUnit(SIZE);
+				if (radsize.isChecked()) {
+					updateSize();
+				} else { 
+					updateTime();
+					updateSpeed();
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -223,16 +211,71 @@ public class DownCalcActivity extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
-				speedunit = (int)  Math.pow(1024, spnspeed.getSelectedItemPosition());
-				updateSpeed();
+				updateUnit(SPEED);
+				if (radspeed.isChecked()) {
+					updateSpeed();
+				} else {
+					updateSize();
+					updateTime();
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main, menu);
+
+        // Calling super after populating the menu is necessary here to ensure that the
+        // action bar helpers have a chance to handle this event.
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Toast.makeText(this, "Tapped home", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    
+    private void updateUnits() {
+    	updateUnit(SIZE);
+    	updateUnit(TIME);
+    	updateUnit(SPEED);
+    }
+    
+    private void updateUnit(int unit) {
+    	switch (unit) {
+    		case SIZE:
+    			if (spnsize.getSelectedItemPosition() < 3) {
+    				sizeunit = (double) Math.pow(1024, spnsize.getSelectedItemPosition());
+    			} else {
+    				sizeunit = (double) (Math.pow(1024, (spnsize.getSelectedItemPosition() % 3)) / 8);
+    			}
+    			break;
+    		case TIME:
+    			timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
+    			break;
+    		case SPEED:
+    			if (spnspeed.getSelectedItemPosition() < 3) {
+    				speedunit = (double) Math.pow(1024, spnspeed.getSelectedItemPosition());
+    			} else {
+    				speedunit = (double) ((Math.pow(1024, (spnspeed.getSelectedItemPosition()) % 3)) / 8);
+    			} 
+    			break;
+    		default:
+    			break;
+    	}
     }
     
     private void updateTime() {
@@ -292,7 +335,7 @@ public class DownCalcActivity extends Activity {
 		}
     }
     
-    private double calcSpeed(double size, double time, int speedunit, int sizeunit, int timeunit) {
+    private double calcSpeed(double size, double time, double speedunit, double sizeunit, int timeunit) {
     	double speed = 0;
     	size = size * sizeunit;
     	time = time * timeunit;
@@ -301,7 +344,7 @@ public class DownCalcActivity extends Activity {
     	return speed;
     }
     
-    private double calcSize(double speed, double time, int speedunit, int sizeunit, int timeunit) {
+    private double calcSize(double speed, double time, double speedunit, double sizeunit, int timeunit) {
     	double size = 0;
     	speed = speed * speedunit;
     	time = time * timeunit;
@@ -310,7 +353,7 @@ public class DownCalcActivity extends Activity {
     	return size;
     }
 
-    private double calcTime(double speed, double size, int speedunit, int sizeunit, int timeunit) {
+    private double calcTime(double speed, double size, double speedunit, double sizeunit, int timeunit) {
     	double time = 0;
     	speed = speed * speedunit;
     	size = size * sizeunit;
