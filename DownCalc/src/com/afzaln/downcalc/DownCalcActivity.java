@@ -1,6 +1,7 @@
-package com.afzal.downcalc;
+package com.afzaln.downcalc;
 
-import android.app.Activity;
+import com.afzaln.downcalc.utils.ActionBarActivity;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,7 +18,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class DownCalcActivity extends Activity {
+public class DownCalcActivity extends ActionBarActivity {
 	static EditText txtspeed;
 	static EditText txtsize;
 	static EditText txttime;
@@ -59,19 +60,6 @@ public class DownCalcActivity extends Activity {
         radspeed = (RadioButton) findViewById(R.id.radspeed);
         radsize = (RadioButton) findViewById(R.id.radsize);
         radtime = (RadioButton) findViewById(R.id.radtime);
-        
-        btnclear = (Button) findViewById(R.id.clear);
-        
-        /** Clear button */
-        btnclear.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				txtsize.setText("");
-				txttime.setText("");
-				txtspeed.setText("");
-			}
-		});
         
         /** Radio button logic */
         radspeed.setOnClickListener(new OnClickListener() {
@@ -243,10 +231,14 @@ public class DownCalcActivity extends Activity {
             case android.R.id.home:
                 Toast.makeText(this, "Tapped home", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.menu_clear:
+            	txtsize.setText("");
+				txttime.setText("");
+				txtspeed.setText("");
+				break;
         }
         return super.onOptionsItemSelected(item);
     }
-
     
     private void updateUnits() {
     	updateUnit(SIZE);
@@ -292,6 +284,8 @@ public class DownCalcActivity extends Activity {
 				if (size != 0 && speed != 0) {
 					time = calcTime(speed, size, speedunit, sizeunit, timeunit);
 					txttime.setText(Double.toString(time));
+				} else {
+					txttime.setText("");
 				}
 			}
 		}
@@ -311,6 +305,8 @@ public class DownCalcActivity extends Activity {
 				if (time != 0 && speed != 0) {
 					size = calcSize(speed, time, speedunit, sizeunit, timeunit);
 					txtsize.setText(Double.toString(size));
+				} else {
+					txtsize.setText("");
 				}
 			}
 		}
@@ -330,6 +326,8 @@ public class DownCalcActivity extends Activity {
 				if (time != 0 && size != 0) {
 					speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
 					txtspeed.setText(Double.toString(speed));
+				} else {
+					txtspeed.setText("");
 				}
 			}
 		}

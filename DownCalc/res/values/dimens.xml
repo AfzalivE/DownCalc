@@ -14,10 +14,8 @@
   limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_clear"
-        android:title="@string/clearbutton"
-        android:icon="@drawable/clear"
-        android:orderInCategory="1"
-        android:showAsAction="always" />
-</menu>
+<resources>
+    <dimen name="actionbar_compat_height">48dp</dimen>
+    <dimen name="actionbar_compat_button_width">48dp</dimen>
+    <dimen name="actionbar_compat_button_home_width">56dp</dimen>
+</resources>

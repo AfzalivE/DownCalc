@@ -14,10 +14,9 @@
   limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_clear"
-        android:title="@string/clearbutton"
-        android:icon="@drawable/clear"
-        android:orderInCategory="1"
-        android:showAsAction="always" />
-</menu>
+<resources>
+    <item type="id" name="actionbar_compat" />
+    <item type="id" name="actionbar_compat_title" />
+    <item type="id" name="actionbar_compat_item_ok" />
+    <item type="id" name="menu_ok" />
+</resources>

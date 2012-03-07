@@ -14,10 +14,10 @@
   limitations under the License.
   -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_clear"
-        android:title="@string/clearbutton"
-        android:icon="@drawable/clear"
-        android:orderInCategory="1"
-        android:showAsAction="always" />
-</menu>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/actionbar_compat_item_pressed"
+        android:state_pressed="true" />
+    <item android:drawable="@drawable/actionbar_compat_item_focused"
+        android:state_focused="true" />
+    <item android:drawable="@android:color/transparent" />
+</selector>
