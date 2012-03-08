@@ -1,22 +1,28 @@
 package com.afzaln.downcalc;
 
-import com.afzaln.downcalc.utils.ActionBarActivity;
-
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.afzaln.downcalc.utils.ActionBarActivity;
 
 public class DownCalcActivity extends ActionBarActivity {
 	static EditText txtspeed;
@@ -30,8 +36,6 @@ public class DownCalcActivity extends ActionBarActivity {
 	static RadioButton radspeed;
 	static RadioButton radsize;
 	static RadioButton radtime;
-	
-	static Button btnclear;
 	
 	private double speedunit = 0;
     private int timeunit = 0;
@@ -236,6 +240,21 @@ public class DownCalcActivity extends ActionBarActivity {
 				txttime.setText("");
 				txtspeed.setText("");
 				break;
+            case R.id.menu_about:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			String title = getString(R.string.app_name) + " " + getString(R.string.version);
+			String message = getString(R.string.creator) + "\n" + getString(R.string.link);
+			builder.setTitle(title)
+			   .setMessage(message)
+		       .setCancelable(false)
+		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                // put your code here
+		           }
+		       });
+			AlertDialog alertDialog = builder.create();
+			alertDialog.show();
+        	break;
         }
         return super.onOptionsItemSelected(item);
     }

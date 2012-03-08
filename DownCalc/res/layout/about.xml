@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvCreator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/tvTitle"
+        android:layout_alignRight="@+id/tvTitle"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginTop="26dp"
+        android:text="@string/creator"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
+        android:id="@+id/tvWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignLeft="@+id/tvTitle"
+        android:layout_alignRight="@+id/tvTitle"
+        android:layout_below="@+id/tvCreator"
+        android:layout_marginTop="26dp"
+        android:text="@string/link"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:linksClickable="true" />
+</RelativeLayout>

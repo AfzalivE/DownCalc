@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <string name="app_name">Download Calculator</string>
     <string name="timehint">Time</string>
     <string name="speedhint">Speed</string>
     <string name="sizehint">Size</string>
-	<string name="clearbutton">Clear all</string>
-	<string name="instructions">Select the value you would like to keep constant and then edit the others.</string>
+    <string name="clearbutton">Clear all</string>
+    <string name="instructions">Select the value you would like to keep constant and then edit the others.</string>
+    <string name="about">About</string>
+    <string name="creator">Created by: Afzal Najam</string>
+    <string name="version">1.0</string>
+    <string name="link">www.afzaln.com</string>
 </resources>

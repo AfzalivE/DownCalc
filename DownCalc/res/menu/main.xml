@@ -20,4 +20,9 @@
         android:icon="@drawable/clear"
         android:orderInCategory="1"
         android:showAsAction="always" />
+    <item android:id="@+id/menu_about"
+        android:title="@string/about"
+        android:icon="@drawable/about"
+        android:orderInCategory="1"
+        android:showAsAction="always" />
 </menu>
