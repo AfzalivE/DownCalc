@@ -1,27 +1,20 @@
 package com.afzaln.downcalc;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.afzaln.downcalc.utils.ActionBarActivity;
 
 public class DownCalcActivity extends ActionBarActivity {
@@ -232,9 +225,6 @@ public class DownCalcActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                Toast.makeText(this, "Tapped home", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.menu_clear:
             	txtsize.setText("");
 				txttime.setText("");
