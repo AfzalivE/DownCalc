@@ -5,9 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -15,52 +12,56 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import com.afzaln.downcalc.utils.ActionBarActivity;
 
-public class DownCalcActivity extends ActionBarActivity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
+public class DownCalcActivity extends SherlockActivity {
 	static EditText txtspeed;
 	static EditText txtsize;
 	static EditText txttime;
-	
+
 	static Spinner spnspeed;
 	static Spinner spnsize;
 	static Spinner spntime;
-	
+
 	static RadioButton radspeed;
 	static RadioButton radsize;
 	static RadioButton radtime;
-	
+
 	private double speedunit = 0;
 	private int timeunit = 0;
 	private double sizeunit = 0;
-	
+
 	static final int SIZE = 0;
 	static final int TIME = 1;
 	static final int SPEED = 2;
-    
-    
-	
+
+
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+
 		txtspeed = (EditText) findViewById(R.id.speed);
 		txtsize = (EditText) findViewById(R.id.size);
 		txttime = (EditText) findViewById(R.id.time);
-		
+
 		spnspeed = (Spinner) findViewById(R.id.speedunit);
 		spnsize = (Spinner) findViewById(R.id.sizeunit);
 		spntime = (Spinner) findViewById(R.id.timeunit);
-		
+
 		radspeed = (RadioButton) findViewById(R.id.radspeed);
 		radsize = (RadioButton) findViewById(R.id.radsize);
 		radtime = (RadioButton) findViewById(R.id.radtime);
-        
+
 		/** Radio button logic */
 		radspeed.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// uncheck the other two
@@ -68,9 +69,9 @@ public class DownCalcActivity extends ActionBarActivity {
 				radtime.setChecked(false);
 			}
 		});
-        
+
 		radsize.setOnClickListener(new OnClickListener() {
-					
+
 			@Override
 			public void onClick(View v) {
 				// uncheck the other two
@@ -80,7 +81,7 @@ public class DownCalcActivity extends ActionBarActivity {
 		});
 
 		radtime.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// uncheck the other two
@@ -88,68 +89,68 @@ public class DownCalcActivity extends ActionBarActivity {
 				radspeed.setChecked(false);
 			}
 		});
-        
+
 		/** EditText change stuff */
         txttime.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				updateSpeed();
 				updateSize();
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				updateUnits();
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 
 			}
 		});
-        
+
     	txtspeed.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				updateTime();
 				updateSize();
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				updateUnits();
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
-				
+
 			}
 		});
-        
+
         txtsize.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				updateTime();
 				updateSpeed();
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				updateUnits();
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
-				
+
 			}
 		});
-        
+
         /** Spinner update stuff */
         spntime.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -167,10 +168,10 @@ public class DownCalcActivity extends ActionBarActivity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				
+
 			}
 		});
-        
+
         spnsize.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -179,7 +180,7 @@ public class DownCalcActivity extends ActionBarActivity {
 				updateUnit(SIZE);
 				if (radsize.isChecked()) {
 					updateSize();
-				} else { 
+				} else {
 					updateTime();
 					updateSpeed();
 				}
@@ -187,10 +188,10 @@ public class DownCalcActivity extends ActionBarActivity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				
+
 			}
 		});
-        
+
         spnspeed.setOnItemSelectedListener(new OnItemSelectedListener() {
 
         	@Override
@@ -207,16 +208,16 @@ public class DownCalcActivity extends ActionBarActivity {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				
+
 			}
 		});
     }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.main, menu);
-		
+	    MenuInflater menuInflater = getSupportMenuInflater();
+	    menuInflater.inflate(R.menu.main, menu);
+
 		// Calling super after populating the menu is necessary here to ensure that the
 		// action bar helpers have a chance to handle this event.
 		return super.onCreateOptionsMenu(menu);
@@ -248,13 +249,13 @@ public class DownCalcActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-    
+
 	private void updateUnits() {
 		updateUnit(SIZE);
 		updateUnit(TIME);
 		updateUnit(SPEED);
 	}
-    
+
 	private void updateUnit(int unit) {
 		switch (unit) {
 			case SIZE:
@@ -272,23 +273,23 @@ public class DownCalcActivity extends ActionBarActivity {
 					speedunit = (double) Math.pow(1024, spnspeed.getSelectedItemPosition());
 				} else {
 					speedunit = (double) ((Math.pow(1024, (spnspeed.getSelectedItemPosition()) % 3)) / 8);
-				} 
+				}
 				break;
 			default:
 				break;
 		}
 	}
-    
+
     private void updateTime() {
 		double speed = 0;
 		double size = 0;
 		double time = 0;
-    	if (radtime.isChecked()) { 
+    	if (radtime.isChecked()) {
 			try {
 				speed = Double.parseDouble(txtspeed.getText().toString());
 				size = Double.parseDouble(txtsize.getText().toString());
 			} catch (NumberFormatException e) {
-				
+
 			} finally {
 				if (size != 0 && speed != 0) {
 					time = calcTime(speed, size, speedunit, sizeunit, timeunit);
@@ -299,7 +300,7 @@ public class DownCalcActivity extends ActionBarActivity {
 			}
 		}
     }
-    
+
     private void updateSize() {
 		double speed = 0;
 		double size = 0;
@@ -309,7 +310,7 @@ public class DownCalcActivity extends ActionBarActivity {
 				speed = Double.parseDouble(txtspeed.getText().toString());
 				time = Double.parseDouble(txttime.getText().toString());
 			} catch (NumberFormatException e) {
-				
+
 			} finally {
 				if (time != 0 && speed != 0) {
 					size = calcSize(speed, time, speedunit, sizeunit, timeunit);
@@ -320,17 +321,17 @@ public class DownCalcActivity extends ActionBarActivity {
 			}
 		}
     }
-    
+
     private void updateSpeed() {
 		double speed = 0;
 		double size = 0;
 		double time = 0;
-		if (radspeed.isChecked()) { 
+		if (radspeed.isChecked()) {
 			try {
 				size = Double.parseDouble(txtsize.getText().toString());
 				time = Double.parseDouble(txttime.getText().toString());
 			} catch (NumberFormatException e) {
-				
+
 			} finally {
 				if (time != 0 && size != 0) {
 					speed = calcSpeed(size, time, speedunit, sizeunit, timeunit);
@@ -341,7 +342,7 @@ public class DownCalcActivity extends ActionBarActivity {
 			}
 		}
     }
-    
+
     private double calcSpeed(double size, double time, double speedunit, double sizeunit, int timeunit) {
     	double speed = 0;
     	size = size * sizeunit;
@@ -350,7 +351,7 @@ public class DownCalcActivity extends ActionBarActivity {
     	speed = speed/speedunit;
     	return speed;
     }
-    
+
     private double calcSize(double speed, double time, double speedunit, double sizeunit, int timeunit) {
     	double size = 0;
     	speed = speed * speedunit;
@@ -368,6 +369,6 @@ public class DownCalcActivity extends ActionBarActivity {
     	time = time/timeunit;
     	return time;
     }
-    
-    
+
+
 }
