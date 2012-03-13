@@ -31,35 +31,35 @@ public class DownCalcActivity extends ActionBarActivity {
 	static RadioButton radtime;
 	
 	private double speedunit = 0;
-    private int timeunit = 0;
-    private double sizeunit = 0;
-    
-    static final int SIZE = 0;
-    static final int TIME = 1;
-    static final int SPEED = 2;
+	private int timeunit = 0;
+	private double sizeunit = 0;
+	
+	static final int SIZE = 0;
+	static final int TIME = 1;
+	static final int SPEED = 2;
     
     
 	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+		
+		txtspeed = (EditText) findViewById(R.id.speed);
+		txtsize = (EditText) findViewById(R.id.size);
+		txttime = (EditText) findViewById(R.id.time);
+		
+		spnspeed = (Spinner) findViewById(R.id.speedunit);
+		spnsize = (Spinner) findViewById(R.id.sizeunit);
+		spntime = (Spinner) findViewById(R.id.timeunit);
+		
+		radspeed = (RadioButton) findViewById(R.id.radspeed);
+		radsize = (RadioButton) findViewById(R.id.radsize);
+		radtime = (RadioButton) findViewById(R.id.radtime);
         
-        txtspeed = (EditText) findViewById(R.id.speed);
-        txtsize = (EditText) findViewById(R.id.size);
-        txttime = (EditText) findViewById(R.id.time);
-        
-        spnspeed = (Spinner) findViewById(R.id.speedunit);
-        spnsize = (Spinner) findViewById(R.id.sizeunit);
-        spntime = (Spinner) findViewById(R.id.timeunit);
-        
-        radspeed = (RadioButton) findViewById(R.id.radspeed);
-        radsize = (RadioButton) findViewById(R.id.radsize);
-        radtime = (RadioButton) findViewById(R.id.radtime);
-        
-        /** Radio button logic */
-        radspeed.setOnClickListener(new OnClickListener() {
+		/** Radio button logic */
+		radspeed.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -110,7 +110,7 @@ public class DownCalcActivity extends ActionBarActivity {
 			}
 		});
         
-        txtspeed.addTextChangedListener(new TextWatcher() {
+    	txtspeed.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -193,7 +193,7 @@ public class DownCalcActivity extends ActionBarActivity {
         
         spnspeed.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
+        	@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 				updateUnit(SPEED);
@@ -212,72 +212,72 @@ public class DownCalcActivity extends ActionBarActivity {
 		});
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.main, menu);
+		
+		// Calling super after populating the menu is necessary here to ensure that the
+		// action bar helpers have a chance to handle this event.
+		return super.onCreateOptionsMenu(menu);
+	}
 
-        // Calling super after populating the menu is necessary here to ensure that the
-        // action bar helpers have a chance to handle this event.
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_clear:
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_clear:
             	txtsize.setText("");
 				txttime.setText("");
 				txtspeed.setText("");
 				break;
-            case R.id.menu_about:
+			case R.id.menu_about:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			String title = getString(R.string.app_name) + " " + getString(R.string.version);
 			String message = getString(R.string.creator) + "\n" + getString(R.string.link);
 			builder.setTitle(title)
 			   .setMessage(message)
-		       .setCancelable(false)
-		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		                // put your code here
-		           }
-		       });
+			   .setCancelable(false)
+			   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			       public void onClick(DialogInterface dialog, int id) {
+			            // put your code here
+			       }
+			   });
 			AlertDialog alertDialog = builder.create();
 			alertDialog.show();
-        	break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
     
-    private void updateUnits() {
-    	updateUnit(SIZE);
-    	updateUnit(TIME);
-    	updateUnit(SPEED);
-    }
+	private void updateUnits() {
+		updateUnit(SIZE);
+		updateUnit(TIME);
+		updateUnit(SPEED);
+	}
     
-    private void updateUnit(int unit) {
-    	switch (unit) {
-    		case SIZE:
-    			if (spnsize.getSelectedItemPosition() < 3) {
-    				sizeunit = (double) Math.pow(1024, spnsize.getSelectedItemPosition());
-    			} else {
-    				sizeunit = (double) (Math.pow(1024, (spnsize.getSelectedItemPosition() % 3)) / 8);
-    			}
-    			break;
-    		case TIME:
-    			timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
-    			break;
-    		case SPEED:
-    			if (spnspeed.getSelectedItemPosition() < 3) {
-    				speedunit = (double) Math.pow(1024, spnspeed.getSelectedItemPosition());
-    			} else {
-    				speedunit = (double) ((Math.pow(1024, (spnspeed.getSelectedItemPosition()) % 3)) / 8);
-    			} 
-    			break;
-    		default:
-    			break;
-    	}
-    }
+	private void updateUnit(int unit) {
+		switch (unit) {
+			case SIZE:
+				if (spnsize.getSelectedItemPosition() < 3) {
+					sizeunit = (double) Math.pow(1024, spnsize.getSelectedItemPosition());
+				} else {
+					sizeunit = (double) (Math.pow(1024, (spnsize.getSelectedItemPosition() % 3)) / 8);
+				}
+				break;
+			case TIME:
+				timeunit = (int) Math.pow(60, spntime.getSelectedItemPosition());
+				break;
+			case SPEED:
+				if (spnspeed.getSelectedItemPosition() < 3) {
+					speedunit = (double) Math.pow(1024, spnspeed.getSelectedItemPosition());
+				} else {
+					speedunit = (double) ((Math.pow(1024, (spnspeed.getSelectedItemPosition()) % 3)) / 8);
+				} 
+				break;
+			default:
+				break;
+		}
+	}
     
     private void updateTime() {
 		double speed = 0;
